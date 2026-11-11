@@ -1,0 +1,8 @@
+# Planning docs stay local because this repo is public
+DG-Trip-Report-Design.md
+CONTEXT.md
+MILESTONES.md
+M1-CLOSE-STEPS.md
+
+.claude/settings.local.json
+.clasprc.json

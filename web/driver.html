@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DG Trip Report — คนขับ</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; font-size: 18px; background: #fff; color: #111; }
+    .muted { color: #666; font-size: 14px; word-break: break-all; }
+    .error { color: #b00020; }
+  </style>
+</head>
+<body>
+  <h1>DG Trip Report</h1>
+  <div id="app">กำลังโหลด…</div>
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    const app = document.getElementById('app');
+
+    function show(html) { app.innerHTML = html; }
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    const STATUS_TEXT = { Active: 'ใช้งานได้', Pending: 'รอแอดมินอนุมัติ', Inactive: 'ปิดการใช้งาน' };
+
+    async function main() {
+      await liff.init({ liffId: CONFIG.LIFF_ID });
+      if (!liff.isLoggedIn()) {
+        liff.login();
+        return;
+      }
+      const me = await callApi('driver.me', { idToken: liff.getIDToken() });
+      const driver = me.driver
+        ? `<p>คนขับ: ${esc(me.driver.name)} (${esc(me.driver.driverCode)})<br>สถานะ: ${esc(STATUS_TEXT[me.driver.status] || me.driver.status)}</p>`
+        : '<p>ยังไม่ได้ลงทะเบียนเป็นคนขับ</p>';
+      show(`<p>สวัสดี ${esc(me.lineName)}</p>${driver}<p class="muted">LINE userId: ${esc(me.userId)}</p>`);
+    }
+
+    main().catch(err => {
+      show(`<p class="error">${esc(err.message || err)}</p>`);
+    });
+  </script>
+</body>
+</html>

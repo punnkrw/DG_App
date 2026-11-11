@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "scripts": {
+    "build:steps": "node tools/build-steps.js",
+    "test": "node --test tests/"
+  }
+}

@@ -1,0 +1,105 @@
+// Generated from steps.json by tools/build-steps.js. Do not edit.
+const STEPS = [
+  {
+    "step": 1,
+    "name": "ถึงต้นทาง",
+    "timeField": "S1_Arrive_Time",
+    "status": "S1",
+    "fields": [
+      {
+        "field": "S1_Photo_Ticket",
+        "label": "ตั๋วเข้า",
+        "required": true
+      },
+      {
+        "field": "S1_Photo_Yard",
+        "label": "รถที่ลาน",
+        "required": true
+      },
+      {
+        "field": "S1_Photo_Temp",
+        "label": "อุณหภูมิห้องเย็น",
+        "required": true
+      }
+    ]
+  },
+  {
+    "step": 2,
+    "name": "โหลดเสร็จ",
+    "timeField": "S2_Load_Time",
+    "status": "S2",
+    "fields": [
+      {
+        "field": "S2_Photo_Cargo",
+        "label": "สินค้าในตู้",
+        "required": true
+      },
+      {
+        "field": "S2_Photo_Door",
+        "label": "ประตูตู้",
+        "required": true
+      },
+      {
+        "field": "S2_Photo_Seal",
+        "label": "ซีล",
+        "required": true
+      },
+      {
+        "field": "S2_Doc_1",
+        "label": "เอกสาร 1",
+        "required": true
+      },
+      {
+        "field": "S2_Doc_2",
+        "label": "เอกสาร 2",
+        "required": false
+      },
+      {
+        "field": "S2_Doc_3",
+        "label": "เอกสาร 3",
+        "required": false
+      }
+    ]
+  },
+  {
+    "step": 3,
+    "name": "ถึงปลายทาง",
+    "timeField": "S3_Dest_Time",
+    "status": "S3",
+    "fields": [
+      {
+        "field": "S3_Photo_Location",
+        "label": "จุดปลายทาง",
+        "required": true
+      }
+    ]
+  },
+  {
+    "step": 4,
+    "name": "ลงของเสร็จ",
+    "timeField": "S4_Unload_Time",
+    "status": "Done",
+    "fields": [
+      {
+        "field": "S4_Photo_Cargo",
+        "label": "สินค้าที่ลง",
+        "required": true
+      },
+      {
+        "field": "S4_Doc_1",
+        "label": "เอกสารประทับตรา",
+        "required": true
+      },
+      {
+        "field": "S4_Doc_2",
+        "label": "เอกสาร 2",
+        "required": false
+      },
+      {
+        "field": "S4_Doc_3",
+        "label": "เอกสาร 3",
+        "required": false
+      }
+    ]
+  }
+];
