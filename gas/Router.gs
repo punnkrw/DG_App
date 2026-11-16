@@ -33,6 +33,26 @@ function doPost(e) {
   return ContentService.createTextOutput(JSON.stringify(res)).setMimeType(ContentService.MimeType.JSON);
 }
 
+// GET is used only as the redirect target of the Microsoft sign-in (see startOneDriveAuth).
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  let msg = 'DG Trip Report';
+  if (p.state) {
+    try {
+      msg = handleOneDriveCallback_(p);
+    } catch (err) {
+      console.error(err && err.stack ? err.stack : err);
+      msg = 'เชื่อม OneDrive ไม่สำเร็จ: ' + (err.message || err);
+    }
+  }
+  return HtmlService.createHtmlOutput('<p style="font:18px sans-serif;padding:24px">' + escapeHtml_(msg) + '</p>')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+
+function escapeHtml_(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
 function parseRequest_(e) {
   let req;
   try {

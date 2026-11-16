@@ -1,9 +1,10 @@
-// Run once from the Apps Script editor. Re-running replaces the existing trigger.
+// Run once from the Apps Script editor. Re-running replaces the existing triggers.
 function installTriggers() {
   ScriptApp.getProjectTriggers()
-    .filter(t => t.getHandlerFunction() === 'onTripsEdit')
+    .filter(t => ['onTripsEdit', 'healthCheck'].indexOf(t.getHandlerFunction()) >= 0)
     .forEach(t => ScriptApp.deleteTrigger(t));
   ScriptApp.newTrigger('onTripsEdit').forSpreadsheet(ss_()).onEdit().create();
+  ScriptApp.newTrigger('healthCheck').timeBased().everyDays(1).atHour(6).create();
 }
 
 // Installable onEdit. Script writes do not fire onEdit, so this does not loop.
